@@ -128,13 +128,13 @@ main.odyssey-graph li > note:after {
 }
 
 main.odyssey-graph li.branch > note:after {
-    background: url("../img/branch-arrow.svg") no-repeat center center;
+    background: url("../static/images/branch-arrow.svg") no-repeat center center;
 }
 
 main.odyssey-graph li.leaf > note:after {
     width: 9px;
     height: 9px;
-    background: url("../img/leaf-arrow.svg") no-repeat center center;
+    background: url("../static/images/leaf-arrow.svg") no-repeat center center;
     left: 10px;
     top: 6px;
 }

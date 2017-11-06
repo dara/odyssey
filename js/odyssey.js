@@ -157,13 +157,14 @@ var Odyssey = (function() {
 
         setTitle(lines[0]);
 
-        for (i=1; i<lines.length; i++) {
-            var sentences = lines[i].match(/[^\.!\?]+[\.!\?]+/g);
-
-            for (j=0; j<sentences.length; j++) {
-                parseSentence(sentences[j]);
+        lines.forEach(function(line) {
+            var sentences = line.match(/[^\.!\?]+[\.!\?]+/g);
+            if (sentences) {
+                sentences.forEach(function(sentence) {
+                    parseSentence(sentence);
+                });
             }
-        }
+        });
 
         stylize();
     }

@@ -98,17 +98,17 @@ const Odyssey = (() => {
     };
 
     const stylize = () => {
-        $('.odyssey-graph li:has(ol)').each(() => {
-            $(this).addClass('branch');
+        $('.odyssey-graph li:has(ol)').each((i, item) => {
+            $(item).addClass('branch');
         });
 
-        $('.odyssey-graph li:not(:has(ol))').each(() => {
-            $(this).addClass('leaf');
+        $('.odyssey-graph li:not(:has(ol))').each((i, item) => {
+            $(item).addClass('leaf');
         });
 
-        $('note').click(() => {
-            if ($(this).parent().has('ol').length > 0) {
-                $(this).parent().toggleClass('hidden');
+        $('note').on('click', (event) => {
+            if ($(event.currentTarget).parent().has('ol').length > 0) {
+                $(event.currentTarget).parent().toggleClass('hidden');
             }
         });
 

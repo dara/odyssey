@@ -3,7 +3,8 @@
 $base-color: #224959;
 $text-color: lighten($base-color, 10%);
 $secondary-color: #74DAF6;
-$background-color: lighten($base-color, 75%);
+// $background-color: lighten($base-color, 75%);
+$background-color: white;
 $font-stack: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
 
 ::-webkit-scrollbar {
@@ -37,7 +38,16 @@ ol, li {
     padding: 0;
 }
 
-main.odyssey-graph {
+main.odyssey-ui {
+    width: 100%;
+    padding-right: 0;
+}
+
+aside.odyssey-ui {
+    display: none;
+}
+
+.odyssey-graph {
     position: absolute;
     top: 2.5rem;
     left: 0;
@@ -47,13 +57,13 @@ main.odyssey-graph {
     overflow: scroll;
 }
 
-main.odyssey-graph li {
+.odyssey-graph li {
     display: flex;
     position: relative;
 }
 
 /* Vertical lines */
-main.odyssey-graph ol > li:before {
+.odyssey-graph ol > li:before {
     border-left: 1px dotted lighten($base-color, 40%);
     content:"";
     margin: 0 auto;
@@ -63,11 +73,11 @@ main.odyssey-graph ol > li:before {
     z-index: -1;
 }
 
-main.odyssey-graph ol > li:last-child:before {
+.odyssey-graph ol > li:last-child:before {
     border: none;
 }
 
-main.odyssey-graph  li > note {
+.odyssey-graph  li > note {
     padding-left: 0.75rem;
     position: relative;
     z-index: 1;
@@ -75,7 +85,7 @@ main.odyssey-graph  li > note {
     width: 14rem; /* Item width */
 }
 
-main.odyssey-graph li > note name {
+.odyssey-graph li > note name {
     padding-left: 1rem;
     width: 14rem;
     color: $base-color;
@@ -83,7 +93,7 @@ main.odyssey-graph li > note name {
     background: $background-color; /* Match background */
 }
 
-main.odyssey-graph li > note description {
+.odyssey-graph li > note description {
     padding: 0 2rem 0 1rem;
     display: block;
     width: 14rem; /* Item width */
@@ -92,8 +102,8 @@ main.odyssey-graph li > note description {
 }
 
 /* Numbering */
-main.odyssey-graph ol { counter-reset: item; }
-main.odyssey-graph li > note name:after {
+.odyssey-graph ol { counter-reset: item; }
+.odyssey-graph li > note name:after {
     content: counters(item, ".") " ";
     counter-increment: item;
     color: $secondary-color;
@@ -101,7 +111,7 @@ main.odyssey-graph li > note name:after {
 
 }
 
-main.odyssey-graph li > note:before {
+.odyssey-graph li > note:before {
     border-top: 1px dotted lighten($base-color, 40%);
     content:"";
     margin: 0;
@@ -111,8 +121,8 @@ main.odyssey-graph li > note:before {
     z-index: -1;
 }
 
-main.odyssey-graph li.leaf > note:before,
-main.odyssey-graph li.hidden > note:before {
+.odyssey-graph li.leaf > note:before,
+.odyssey-graph li.hidden > note:before {
     border-top: 1px dotted lighten($base-color, 40%);
     content:"";
     margin: 0;
@@ -122,7 +132,7 @@ main.odyssey-graph li.hidden > note:before {
     z-index: -1;
 }
 
-main.odyssey-graph li > note:after {
+.odyssey-graph li > note:after {
     content: "";
     width: 8px;
     height: 11px;
@@ -132,11 +142,11 @@ main.odyssey-graph li > note:after {
     display: inline-block;
 }
 
-main.odyssey-graph li.branch > note:after {
+.odyssey-graph li.branch > note:after {
     background: url("../static/images/branch-arrow.svg") no-repeat center center;
 }
 
-main.odyssey-graph li.leaf > note:after {
+.odyssey-graph li.leaf > note:after {
     width: 9px;
     height: 9px;
     background: url("../static/images/leaf-arrow.svg") no-repeat center center;
@@ -144,16 +154,17 @@ main.odyssey-graph li.leaf > note:after {
     top: 6px;
 }
 
-main.odyssey-graph li.hidden > ol, .odyssey li.hidden > note description { display: none; }
+.odyssey-graph li.hidden > ol, .odyssey li.hidden > note description { display: none; }
 
 header.odyssey-header {
     height: 2.5rem;
     padding: 0 2rem;
     line-height: 2.5rem;
-    background: white;
+    background: $background-color;
     color: $base-color;
     font-weight: bold;
-    box-shadow: 0 1px 10px -3px rgba(0, 0, 0, 0.05);
+    // box-shadow: 0 1px 10px -3px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #F2F2F2;
     text-align: center;
     z-index: 2;
 }
@@ -170,35 +181,42 @@ textarea.odyssey-editor {
     background: rgba(255, 255, 255, 0.90);
     color: $text-color;
     border: none;
-    box-shadow: -1px 0 10px -3px rgba(0, 0, 0, 0.05);
+    // box-shadow: -1px 0 10px -3px rgba(0, 0, 0, 0.05);
+    border-left: 1px solid #F2F2F2;
     outline: none;
     resize: none;
 }
 
-.odyssey-toggle-editor {
-    opacity: 0.4;
-}
-
-.odyssey-editor-hidden textarea.odyssey-editor {
+.odyssey-aside-visible aside.odyssey-ui {
     display: none;
 }
 
-.odyssey-editor-hidden .odyssey-toggle-editor {
-    opacity: 1;
+.odyssey-aside-visible {
+    main.odyssey-ui {
+        padding-right: 14rem;
+        .odyssey-graph {
+            right: 14rem;
+        }
+    }
+    aside.odyssey-ui {
+        display: block;
+    }
 }
 
 footer.odyssey-status-bar {
     position: absolute;
     bottom: 0;
+    right: 0;
     z-index: 1;
-    padding: 0 2rem;
-    width: 100%;
+    padding: 0 1.5rem;
+    width: 14rem;
     height: 1.8rem;
     line-height: 1.7rem;
     margin: 0;
     color: $text-color;
     border: none;
-    box-shadow: 0 -1px 10px -3px rgba(0, 0, 0, 0.05);
+    // box-shadow: 0 -1px 10px -3px rgba(0, 0, 0, 0.05);
+    border-left: 1px solid #F2F2F2;
     outline: none;
     background: white;
 }

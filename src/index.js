@@ -1,9 +1,6 @@
 import $ from 'jquery';
 
-import Header from 'odyssey/templates/ui/Header';
-import Editor from 'odyssey/templates/ui/Editor';
-import Graph from 'odyssey/templates/ui/Graph';
-import StatusBar from 'odyssey/templates/ui/StatusBar';
+import UI from 'odyssey/templates/UI';
 import Location from 'odyssey/templates/Location';
 
 const Odyssey = (() => {
@@ -148,12 +145,10 @@ const Odyssey = (() => {
 
     const init = () => {
         if (!$('html').hasClass('odyssey-ready')) {
-            $('body').prepend($(Header()))
-                .append($(Graph()))
-                .append($(Editor()))
-                .append($(StatusBar()));
 
-            $('html').addClass('odyssey-editor-hidden')
+            $('body').append($(UI()));
+
+            $('html').addClass('odyssey-aside-hidden')
                 .addClass('odyssey-ready');
         }
 
@@ -164,8 +159,10 @@ const Odyssey = (() => {
             }
         });
 
-        $('.odyssey-toggle-editor').click(() => {
-            $('html').toggleClass('odyssey-editor-hidden');
+        $(document).focus().keypress('o', (event) => {
+            if (event.ctrlKey) {
+                $('html').toggleClass('odyssey-aside-visible');
+            }
         });
 
         parse();

@@ -78,7 +78,6 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         options: {
           cacheDirectory: true,
-          presets: ['babel-preset-env']
         }
       },
       {

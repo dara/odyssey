@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
 import UI from 'odyssey/templates/UI';
+import parseSentence from 'odyssey/lib/parse-sentence';
 import Location from 'odyssey/templates/Location';
 
 const Odyssey = (() => {
@@ -17,8 +18,6 @@ const Odyssey = (() => {
     };
 
     const stateProxy = new Proxy(State, StateProxy);
-
-    const removeBrackets = str => `${str}`.replace(/[[|\]]/g, '');
 
     const toSlug = name => name.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
 
@@ -56,39 +55,12 @@ const Odyssey = (() => {
         return result;
     };
 
-    const orientation = (sentence) => {
-        const regexp = new RegExp('((\\S*@".*")|\\S*@(?:\\[[^\\]]+\\]|\\S+))', 'ig');
-        const match = removeBrackets(sentence).match(regexp);
+    const readSentence = (sentence) => {
+        const { orientation, description, routes } = parseSentence(sentence);
 
-        if (match) {
-            stateProxy.location = findOrCreateLocationByName(match[0]);
-            return true;
-        }
-
-        return false;
-    };
-
-    const setDescription = (sentence) => {
-        // regex to remove some chars and things between square brackets
-        const clean = sentence.replace(/[@"=]/g, '').replace(/\[[^\]]*?\]/g, '');
-
-        $('> note description', stateProxy.location).append(` ${clean}`);
-    };
-
-    const findRoutes = (sentence) => {
-        const regexp = new RegExp('((\\S*=".*?")|\\S*=(?:\\[[^\\]]+\\]|\\S+))', 'ig');
-        const matches = removeBrackets(sentence).match(regexp);
-
-        if (!matches) return;
-        matches.forEach(match => findOrCreateLocationByName(match));
-    };
-
-    const parseSentence = (sentence) => {
-        orientation(sentence);
-
-        setDescription(sentence);
-
-        findRoutes(sentence);
+        if (orientation) stateProxy.location = findOrCreateLocationByName(orientation);
+        if (description) $('> note description', stateProxy.location).append(` ${description}`);
+        if (routes) routes.forEach(route => findOrCreateLocationByName(route));
 
         // eslint-disable-next-line no-console
         console.log($(stateProxy.location).data('location-name'), sentence);
@@ -135,7 +107,7 @@ const Odyssey = (() => {
             const sentences = line.match(/[^\\.!\\?]+[\\.!\\?]+/g);
             if (sentences) {
                 sentences.forEach((sentence) => {
-                    parseSentence(sentence);
+                    readSentence(sentence);
                 });
             }
         });
@@ -145,9 +117,7 @@ const Odyssey = (() => {
 
     const init = () => {
         if (!$('html').hasClass('odyssey-ready')) {
-
             $('body').append($(UI()));
-
             $('html').addClass('odyssey-aside-hidden')
                 .addClass('odyssey-ready');
         }

@@ -85,6 +85,12 @@ aside.odyssey-ui {
     width: 14rem; /* Item width */
 }
 
+.odyssey-graph  li > note img {
+    max-width: 100%;
+    border: 0;
+    border-radius: 0.25rem;
+}
+
 .odyssey-graph li > note name {
     padding-left: 1rem;
     width: 14rem;

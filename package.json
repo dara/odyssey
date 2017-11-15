@@ -27,6 +27,7 @@
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "compromise": "^11.1.0",
     "jquery": "^3.2.1",
     "webpack": "^3.8.1"
   },

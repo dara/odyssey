@@ -1,6 +1,7 @@
 module.exports = {
     "env": {
         "browser": true,
+        "jest/globals": true,
     },
     "extends": "airbnb-base",
     "settings": {
@@ -8,5 +9,6 @@ module.exports = {
     },
     "rules": {
         "indent": ["error", 4]
-    }
+    },
+    "plugins": ["jest"]
 };

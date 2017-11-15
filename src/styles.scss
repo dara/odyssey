@@ -53,7 +53,7 @@ aside.odyssey-ui {
     left: 0;
     right: 0;
     bottom: 1.8rem;
-    padding: 2rem 0 4rem 0;
+    padding: 1rem 0 4rem 0;
     overflow: scroll;
 }
 
@@ -89,6 +89,7 @@ aside.odyssey-ui {
     max-width: 100%;
     border: 0;
     border-radius: 0.25rem;
+    margin: 0.5rem 2rem 0.5rem 1rem;
 }
 
 .odyssey-graph li > note name {
@@ -221,7 +222,6 @@ footer.odyssey-status-bar {
     margin: 0;
     color: $text-color;
     border: none;
-    // box-shadow: 0 -1px 10px -3px rgba(0, 0, 0, 0.05);
     border-left: 1px solid #F2F2F2;
     outline: none;
     background: white;

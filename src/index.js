@@ -3,8 +3,11 @@ import $ from 'jquery';
 import UI from 'odyssey/templates/UI';
 import parseSentence from 'odyssey/lib/parse-sentence';
 import Location from 'odyssey/templates/Location';
+import nlp from 'compromise';
 
 const Odyssey = (() => {
+    let throttledParse;
+
     const State = {
         location: null,
     };
@@ -27,6 +30,14 @@ const Odyssey = (() => {
         return results.length ? results[0] : null;
     };
 
+    const isImage = url => new Promise((resolve) => {
+        const image = new Image();
+
+        image.onload = () => {
+            resolve(image);
+        };
+        image.src = url;
+    });
 
     const addLocation = (name) => {
         if (stateProxy.location == null) {
@@ -56,14 +67,23 @@ const Odyssey = (() => {
     };
 
     const readSentence = (sentence) => {
-        const { orientation, description, routes } = parseSentence(sentence);
+        const text = sentence.out('text');
+        const { orientation, description, routes } = parseSentence(text);
 
         if (orientation) stateProxy.location = findOrCreateLocationByName(orientation);
         if (description) $('> note description', stateProxy.location).append(` ${description}`);
         if (routes) routes.forEach(route => findOrCreateLocationByName(route));
 
+        const { location } = stateProxy;
+        sentence.urls().forEach((urlNode) => {
+            const url = urlNode.out('normal');
+            isImage(url).then((image) => {
+                $('description', location).before(image);
+            });
+        });
+
         // eslint-disable-next-line no-console
-        console.log($(stateProxy.location).data('location-name'), sentence);
+        console.log($(stateProxy.location).data('location-name'), text);
     };
 
     const stylize = () => {
@@ -97,18 +117,12 @@ const Odyssey = (() => {
     const parse = () => {
         reset();
 
-        const lines = $('.odyssey-editor').val().match(/[^\r\n]+/g);
-
-        lines.map(line => line.trim());
-
-        setTitle(lines[0]);
-
-        lines.forEach((line) => {
-            const sentences = line.match(/[^\\.!\\?]+[\\.!\\?]+/g);
-            if (sentences) {
-                sentences.forEach((sentence) => {
-                    readSentence(sentence);
-                });
+        const sentences = nlp($('.odyssey-editor').val()).sentences();
+        sentences.forEach((sentence, i) => {
+            if (i === 0) {
+                setTitle(sentence.out('text'));
+            } else {
+                readSentence(sentence);
             }
         });
 
@@ -122,11 +136,9 @@ const Odyssey = (() => {
                 .addClass('odyssey-ready');
         }
 
-        $('.odyssey-editor').focus().keyup((event) => {
-            if ([13, 190, 38, 40].includes(event.which)) {
-                parse();
-                event.preventDefault();
-            }
+        $('.odyssey-editor').focus().keyup(() => {
+            clearTimeout(throttledParse);
+            throttledParse = setTimeout(parse, 150);
         });
 
         $(document).focus().keypress('o', (event) => {

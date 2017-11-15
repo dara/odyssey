@@ -3,7 +3,6 @@
 $base-color: #224959;
 $text-color: lighten($base-color, 10%);
 $secondary-color: #74DAF6;
-// $background-color: lighten($base-color, 75%);
 $background-color: white;
 $font-stack: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
 
@@ -170,7 +169,6 @@ header.odyssey-header {
     background: $background-color;
     color: $base-color;
     font-weight: bold;
-    // box-shadow: 0 1px 10px -3px rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid #F2F2F2;
     text-align: center;
     z-index: 2;
@@ -188,7 +186,6 @@ textarea.odyssey-editor {
     background: rgba(255, 255, 255, 0.90);
     color: $text-color;
     border: none;
-    // box-shadow: -1px 0 10px -3px rgba(0, 0, 0, 0.05);
     border-left: 1px solid #F2F2F2;
     outline: none;
     resize: none;

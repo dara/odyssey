@@ -1,9 +1,9 @@
-export default function Location({ slug, name/* , description */ }) {
+export default function Location({ slug, name }) {
     return `
         <li data-location-name="${slug}">
             <note>
-                <name><span>${name}</span></name>
-                <description></description>
+                <header><span>${name}</span></header>
+                <main></main>
             </note>
         </li>
     `;

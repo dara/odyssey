@@ -9,7 +9,7 @@ const orientation = (sentence) => {
     return null;
 };
 
-const description = (sentence) => {
+const text = (sentence) => {
     // regex to remove some chars and things between square brackets
     const clean = sentence.replace(/[@"=]/g, '').replace(/\[[^\]]*?\]/g, '');
 
@@ -27,7 +27,7 @@ const routes = (sentence) => {
 export default function parseSentence(sentence) {
     return {
         orientation: orientation(sentence),
-        description: description(sentence),
+        text: text(sentence),
         routes: routes(sentence),
     };
 }

@@ -3,7 +3,6 @@
 $base-color: #224959;
 $text-color: lighten($base-color, 10%);
 $secondary-color: #74DAF6;
-// $background-color: lighten($base-color, 75%);
 $background-color: white;
 $font-stack: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
 
@@ -53,7 +52,7 @@ aside.odyssey-ui {
     left: 0;
     right: 0;
     bottom: 1.8rem;
-    padding: 2rem 0 4rem 0;
+    padding: 1rem 0 4rem 0;
     overflow: scroll;
 }
 
@@ -89,9 +88,11 @@ aside.odyssey-ui {
     max-width: 100%;
     border: 0;
     border-radius: 0.25rem;
+    margin: 0.5rem 0;
 }
 
-.odyssey-graph li > note name {
+.odyssey-graph li > note header {
+    display: inline;
     padding-left: 1rem;
     width: 14rem;
     color: $base-color;
@@ -99,17 +100,25 @@ aside.odyssey-ui {
     background: $background-color; /* Match background */
 }
 
-.odyssey-graph li > note description {
+.odyssey-graph li > note main {
     padding: 0 2rem 0 1rem;
     display: block;
     width: 14rem; /* Item width */
     color: $text-color;
     min-height: 8rem;
+    overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 /* Numbering */
 .odyssey-graph ol { counter-reset: item; }
-.odyssey-graph li > note name:after {
+.odyssey-graph li > note header:after {
     content: counters(item, ".") " ";
     counter-increment: item;
     color: $secondary-color;
@@ -160,7 +169,7 @@ aside.odyssey-ui {
     top: 6px;
 }
 
-.odyssey-graph li.hidden > ol, .odyssey li.hidden > note description { display: none; }
+.odyssey-graph li.hidden > ol, .odyssey li.hidden > note text { display: none; }
 
 header.odyssey-header {
     height: 2.5rem;
@@ -169,7 +178,6 @@ header.odyssey-header {
     background: $background-color;
     color: $base-color;
     font-weight: bold;
-    // box-shadow: 0 1px 10px -3px rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid #F2F2F2;
     text-align: center;
     z-index: 2;
@@ -187,7 +195,6 @@ textarea.odyssey-editor {
     background: rgba(255, 255, 255, 0.90);
     color: $text-color;
     border: none;
-    // box-shadow: -1px 0 10px -3px rgba(0, 0, 0, 0.05);
     border-left: 1px solid #F2F2F2;
     outline: none;
     resize: none;
@@ -221,7 +228,6 @@ footer.odyssey-status-bar {
     margin: 0;
     color: $text-color;
     border: none;
-    // box-shadow: 0 -1px 10px -3px rgba(0, 0, 0, 0.05);
     border-left: 1px solid #F2F2F2;
     outline: none;
     background: white;
@@ -249,4 +255,4 @@ footer.odyssey-status-bar .odyssey-menu li {
 
 footer.odyssey-status-bar .odyssey-location {}
 
-.focus name span {}
+.focus header span {}

@@ -2,7 +2,7 @@
 
 exports[`parseSentence should be able to parse example 1 1`] = `
 Object {
-  "description": "Emma is at Moma's homepage. After briefly scanning the page she decides that the Explore Architecture section might be the best place to start rather than search.",
+  "text": "Emma is at Moma's homepage. After briefly scanning the page she decides that the Explore Architecture section might be the best place to start rather than search.",
   "orientation": "@Moma's",
   "routes": null,
 }
@@ -10,7 +10,7 @@ Object {
 
 exports[`parseSentence should be able to parse example 2 1`] = `
 Object {
-  "description": "She sees options to view Feature Based Content and also an area called Themes with Links to the various themes.",
+  "text": "She sees options to view Feature Based Content and also an area called Themes with Links to the various themes.",
   "orientation": null,
   "routes": Array [
     "=\\"Feature Based Content\\"",
@@ -21,7 +21,7 @@ Object {
 
 exports[`parseSentence should be able to parse example 3 1`] = `
 Object {
-  "description": "Emma chooses to Browse by Style having seen some of the Art Deco pictures in her original search.",
+  "text": "Emma chooses to Browse by Style having seen some of the Art Deco pictures in her original search.",
   "orientation": "@\\"Browse by Style\\"",
   "routes": null,
 }

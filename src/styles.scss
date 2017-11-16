@@ -88,10 +88,11 @@ aside.odyssey-ui {
     max-width: 100%;
     border: 0;
     border-radius: 0.25rem;
-    margin: 0.5rem 2rem 0.5rem 1rem;
+    margin: 0.5rem 0;
 }
 
-.odyssey-graph li > note name {
+.odyssey-graph li > note header {
+    display: inline;
     padding-left: 1rem;
     width: 14rem;
     color: $base-color;
@@ -99,17 +100,25 @@ aside.odyssey-ui {
     background: $background-color; /* Match background */
 }
 
-.odyssey-graph li > note description {
+.odyssey-graph li > note main {
     padding: 0 2rem 0 1rem;
     display: block;
     width: 14rem; /* Item width */
     color: $text-color;
     min-height: 8rem;
+    overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 /* Numbering */
 .odyssey-graph ol { counter-reset: item; }
-.odyssey-graph li > note name:after {
+.odyssey-graph li > note header:after {
     content: counters(item, ".") " ";
     counter-increment: item;
     color: $secondary-color;
@@ -160,7 +169,7 @@ aside.odyssey-ui {
     top: 6px;
 }
 
-.odyssey-graph li.hidden > ol, .odyssey li.hidden > note description { display: none; }
+.odyssey-graph li.hidden > ol, .odyssey li.hidden > note text { display: none; }
 
 header.odyssey-header {
     height: 2.5rem;
@@ -246,4 +255,4 @@ footer.odyssey-status-bar .odyssey-menu li {
 
 footer.odyssey-status-bar .odyssey-location {}
 
-.focus name span {}
+.focus header span {}

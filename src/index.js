@@ -15,7 +15,7 @@ const Odyssey = (() => {
     const StateProxy = {
         set(target, key, value) {
             Object.assign(target, { [key]: value });
-            $('span.odyssey-location').html(`<strong>@</strong> ${$('name span', target[key]).html()}`);
+            $('span.odyssey-location').html(`<strong>@</strong> ${$('header span', target[key]).html()}`);
             return true;
         },
     };
@@ -29,15 +29,6 @@ const Odyssey = (() => {
 
         return results.length ? results[0] : null;
     };
-
-    const isImage = url => new Promise((resolve) => {
-        const image = new Image();
-
-        image.onload = () => {
-            resolve(image);
-        };
-        image.src = url;
-    });
 
     const addLocation = (name) => {
         if (stateProxy.location == null) {
@@ -67,23 +58,26 @@ const Odyssey = (() => {
     };
 
     const readSentence = (sentence) => {
-        const text = sentence.out('text');
-        const { orientation, description, routes } = parseSentence(text);
+        const _text = sentence.out('text');
+        const { text, orientation, routes } = parseSentence(_text);
 
         if (orientation) stateProxy.location = findOrCreateLocationByName(orientation);
-        if (description) $('> note description', stateProxy.location).append(` ${description}`);
-        if (routes) routes.forEach(route => findOrCreateLocationByName(route));
 
         const { location } = stateProxy;
+
         sentence.urls().forEach((urlNode) => {
             const url = urlNode.out('normal');
-            isImage(url).then((image) => {
-                $('description', location).before(image);
-            });
+            // If Image?
+            if (url.match(/(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?/)) {
+                $('main', location).prepend("<img src='"+ url +"' />");
+            }
         });
 
+        if (text) $('> note main', stateProxy.location).append(` ${text}`);
+        if (routes) routes.forEach(route => findOrCreateLocationByName(route));
+
         // eslint-disable-next-line no-console
-        console.log($(stateProxy.location).data('location-name'), text);
+        // console.log($(stateProxy.location).data('location-name'), text);
     };
 
     const stylize = () => {

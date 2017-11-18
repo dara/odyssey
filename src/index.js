@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import UI from 'odyssey/templates/UI';
-import parseSentence from 'odyssey/lib/parse-sentence';
+import wayfinder from 'odyssey/lib/wayfinder';
 import Location from 'odyssey/templates/Location';
 import nlp from 'compromise';
 
@@ -39,7 +39,7 @@ const Odyssey = (() => {
 
         const newLocation = $(Location({
             slug: toSlug(name),
-            name: name.replace(/[@\\="]/g, ''),
+            name: name.replace(/[@#\\="]/g, ''),
         }));
 
         $(stateProxy.location).find('> ol').append(newLocation);
@@ -57,27 +57,38 @@ const Odyssey = (() => {
         return result;
     };
 
-    const readSentence = (sentence) => {
-        const _text = sentence.out('text');
-        const { text, orientation, routes } = parseSentence(_text);
-
-        if (orientation) stateProxy.location = findOrCreateLocationByName(orientation);
-
-        const { location } = stateProxy;
-
+    const processURLs = (sentence) => {
         sentence.urls().forEach((urlNode) => {
             const url = urlNode.out('normal');
-            // If Image?
-            if (url.match(/(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?/)) {
-                $('main', location).prepend("<img src='"+ url +"' />");
+            if (url.match(/(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:jpg|jpeg|gif|png))(?:\?([^#]*))?(?:#(.*))?/)) {
+                $('> note main', stateProxy.location).prepend("<img src='"+ url +"' />");
             }
         });
+    };
 
-        if (text) $('> note main', stateProxy.location).append(` ${text}`);
-        if (routes) routes.forEach(route => findOrCreateLocationByName(route));
+    const readSentence = (sentence) => {
+        const _text = sentence.out('text').trim();
 
-        // eslint-disable-next-line no-console
-        // console.log($(stateProxy.location).data('location-name'), text);
+        const { location, routes, target } = wayfinder(_text);
+
+        const clean = _text.replace(/[@#"=]/g, '').replace(/\[[^\]]*?\]/g, '');
+
+        if (location) {
+            stateProxy.location = findOrCreateLocationByName(location);
+            if (clean) $('> note main', stateProxy.location).append(` ${clean}`);
+            console.log(location, clean);
+        } else if (target) {
+            if (clean) $('> note main', stateProxy.location).append(` ${clean}`);
+            stateProxy.location = findOrCreateLocationByName(target);
+            console.log(target, clean);
+        } else if (routes) {
+            routes.forEach(route => findOrCreateLocationByName(route));
+            console.log(routes, clean);
+        } else {
+            if (clean) $('> note main', stateProxy.location).append(` ${clean}`);
+        }
+
+        processURLs(sentence);
     };
 
     const stylize = () => {

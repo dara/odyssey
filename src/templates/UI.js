@@ -6,7 +6,23 @@ export default function UI() {
     <aside class="odyssey-ui">
         <textarea class="odyssey-editor">Emma's Journey
 
-Emma is at @Moma's homepage. After briefly scanning the page she decides that the Explore Architecture section might be the best place to start rather than search. https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
+Emma is at @Moma's homepage. After briefly scanning the page she decides that the Explore Architecture section might be the best place to start rather than search.
+
+https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
+
+=a
+
+https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
+
+=b
+
+@Zoo
+
+https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
+
+=d
+
+https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
         </textarea>
 
         <footer class="odyssey-status-bar">

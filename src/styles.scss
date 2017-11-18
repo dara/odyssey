@@ -1,6 +1,6 @@
 /* LAYOUT */
 
-$base-color: #224959;
+$base-color: #181818;
 $text-color: lighten($base-color, 10%);
 $secondary-color: #74DAF6;
 $background-color: white;
@@ -28,7 +28,7 @@ body, textarea {
     padding: 0;
     margin: 0;
     font-family: $font-stack;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     line-height: 1.6;
 }
 
@@ -88,7 +88,7 @@ aside.odyssey-ui {
     max-width: 100%;
     border: 0;
     border-radius: 0.25rem;
-    margin: 0.5rem 0;
+    margin-bottom: 0.25rem;
 }
 
 .odyssey-graph li > note header {
@@ -101,19 +101,21 @@ aside.odyssey-ui {
 }
 
 .odyssey-graph li > note main {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     padding: 0 2rem 0 1rem;
     display: block;
     width: 14rem; /* Item width */
     color: $text-color;
     min-height: 8rem;
     overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 
 /* Numbering */

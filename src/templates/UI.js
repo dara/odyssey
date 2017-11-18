@@ -8,21 +8,7 @@ export default function UI() {
 
 Emma is at @Moma's homepage. After briefly scanning the page she decides that the Explore Architecture section might be the best place to start rather than search.
 
-https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
-
-=a
-
-https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
-
-=b
-
-@Zoo
-
-https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
-
-=d
-
-https://centralillustration.com/cms-data/illustrations/lo-RoseBlake-PinkWall.jpg
+[http://localhost:9000/images/random/Unknown-2.jpeg]
         </textarea>
 
         <footer class="odyssey-status-bar">

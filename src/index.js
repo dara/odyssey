@@ -57,38 +57,33 @@ const Odyssey = (() => {
         return result;
     };
 
-    const processURLs = (sentence) => {
-        sentence.urls().forEach((urlNode) => {
-            const url = urlNode.out('normal');
-            if (url.match(/(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:jpg|jpeg|gif|png))(?:\?([^#]*))?(?:#(.*))?/)) {
-                $('> note main', stateProxy.location).prepend("<img src='"+ url +"' />");
-            }
-        });
+    const processImages = (text) => {
+        const regex = /(?:https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg))/;
+        if (text.match(regex)) {
+            $('> note main', stateProxy.location).prepend("<img src='"+ text.match(regex) +"' />");
+        }
     };
 
     const readSentence = (sentence) => {
-        const _text = sentence.out('text').trim();
+        const text = sentence.out('text').trim();
 
-        const { location, routes, target } = wayfinder(_text);
+        const { location, routes, target } = wayfinder(text);
 
-        const clean = _text.replace(/[@#"=]/g, '').replace(/\[[^\]]*?\]/g, '');
+        let clean = text.replace(/[@#"=]/g, '').replace(/\[[^\]]*?\]/g, '');
 
         if (location) {
             stateProxy.location = findOrCreateLocationByName(location);
             if (clean) $('> note main', stateProxy.location).append(` ${clean}`);
-            console.log(location, clean);
         } else if (target) {
             if (clean) $('> note main', stateProxy.location).append(` ${clean}`);
             stateProxy.location = findOrCreateLocationByName(target);
-            console.log(target, clean);
         } else if (routes) {
             routes.forEach(route => findOrCreateLocationByName(route));
-            console.log(routes, clean);
         } else {
             if (clean) $('> note main', stateProxy.location).append(` ${clean}`);
         }
 
-        processURLs(sentence);
+        processImages(text);
     };
 
     const stylize = () => {

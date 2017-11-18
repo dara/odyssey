@@ -60,8 +60,8 @@ const Odyssey = (() => {
     const processURLs = (sentence) => {
         sentence.urls().forEach((urlNode) => {
             const url = urlNode.out('normal');
-            if (url.match(/(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?/)) {
-                $('main', stateProxy.location).prepend("<img src='"+ url +"' />");
+            if (url.match(/(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:jpg|jpeg|gif|png))(?:\?([^#]*))?(?:#(.*))?/)) {
+                $('> note main', stateProxy.location).prepend("<img src='"+ url +"' />");
             }
         });
     };

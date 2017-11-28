@@ -4,12 +4,7 @@ export default function UI() {
         <div class="odyssey-graph" data-location-name="Odyssey"></div>
     </main>
     <aside class="odyssey-ui">
-        <textarea class="odyssey-editor">Emma's Journey
-
-Emma is at @Moma's homepage. After briefly scanning the page she decides that the Explore Architecture section might be the best place to start rather than search.
-
-[http://localhost:9000/images/random/Unknown-2.jpeg]
-        </textarea>
+        <textarea class="odyssey-editor"></textarea>
 
         <footer class="odyssey-status-bar">
             <span class="odyssey-location"></span>
@@ -20,3 +15,11 @@ Emma is at @Moma's homepage. After briefly scanning the page she decides that th
     </aside>
     `;
 }
+
+/*
+Emma's Journey
+
+Emma is at @Moma's homepage. After briefly scanning the page she decides that the Explore Architecture section might be the best place to start rather than search.
+
+[http://localhost:9000/images/random/Unknown-2.jpeg]
+*/

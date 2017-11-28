@@ -8,9 +8,11 @@ import nlp from 'compromise';
 const Odyssey = (() => {
     let throttledParse;
 
-    const State = {
-        location: null,
-    };
+    const State = { location: null };
+
+    let story;
+
+    const localStorage = require('local-storage');
 
     const StateProxy = {
         set(target, key, value) {
@@ -110,21 +112,31 @@ const Odyssey = (() => {
     };
 
     const setTitle = (sentence) => {
+        const title = ['Odyssey'];
+        title[1] = sentence;
         $('header.odyssey-header').html(sentence);
-        document.title = `Odyssey - ${sentence}`;
+        document.title = title.join(' - ');
     };
 
     const parse = () => {
         reset();
 
-        const sentences = nlp($('.odyssey-editor').val()).sentences();
-        sentences.forEach((sentence, i) => {
-            if (i === 0) {
-                setTitle(sentence.out('text'));
-            } else {
-                readSentence(sentence);
-            }
-        });
+        story = $('.odyssey-editor').val();
+
+        localStorage('Odyssey', story);
+
+        if (story) {
+            const sentences = nlp(story).sentences();
+            sentences.forEach((sentence, i) => {
+                if (i === 0) {
+                    setTitle(sentence.out('text'));
+                } else {
+                    readSentence(sentence);
+                }
+            });
+        } else {
+            setTitle(null);
+        }
 
         stylize();
     };
@@ -135,6 +147,8 @@ const Odyssey = (() => {
             $('html').addClass('odyssey-aside-hidden')
                 .addClass('odyssey-ready');
         }
+
+        $('.odyssey-editor').val(localStorage('Odyssey'));
 
         $('.odyssey-editor').focus().keyup(() => {
             clearTimeout(throttledParse);

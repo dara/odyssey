@@ -29,6 +29,7 @@
     "babel-preset-env": "^1.6.1",
     "compromise": "^11.1.0",
     "jquery": "^3.2.1",
+    "local-storage": "^1.4.2",
     "webpack": "^3.8.1"
   },
   "devDependencies": {

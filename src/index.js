@@ -113,7 +113,13 @@ const Odyssey = (() => {
 
     const setTitle = (sentence) => {
         const title = ['Odyssey'];
-        title[1] = sentence;
+
+        if (sentence != null) {
+            title[1] = sentence;
+        } else {
+            delete title[1];
+        }
+
         $('header.odyssey-header').html(sentence);
         document.title = title.join(' - ');
     };

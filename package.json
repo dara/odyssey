@@ -10,7 +10,8 @@
     "lint:fix": "eslint ./src",
     "lint:watch": "esw -w --cache --color ./src",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "deploy": "sh ./deploy.sh"
   },
   "repository": {
     "type": "git",

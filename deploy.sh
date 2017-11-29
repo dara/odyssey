@@ -1,3 +1,6 @@
+# Cleanup the build directory
+rm -rf build
+mkdir -p build
 # Build the app
 npm run build
 # Copy git context to the build directory

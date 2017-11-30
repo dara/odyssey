@@ -1,4 +1,4 @@
-export default function UI() {
+export default function uiTemplate() {
     return `<main class="odyssey-ui">
         <header class="odyssey-header"></header>
         <div class="odyssey-graph" data-location-name="Odyssey"></div>

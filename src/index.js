@@ -1,8 +1,8 @@
 import $ from 'jquery';
 
-import UI from 'odyssey/templates/UI';
+import uiTemplate from 'odyssey/templates/ui-template';
+import locationTemplate from 'odyssey/templates/location-template';
 import wayfinder from 'odyssey/lib/wayfinder';
-import Location from 'odyssey/templates/Location';
 import nlp from 'compromise';
 
 const Odyssey = (() => {
@@ -39,7 +39,7 @@ const Odyssey = (() => {
 
         $(stateProxy.location).not(':has(ol)').append('<ol></ol>');
 
-        const newLocation = $(Location({
+        const newLocation = $(locationTemplate({
             slug: toSlug(name),
             name: name.replace(/[@#\\="]/g, ''),
         }));
@@ -149,7 +149,7 @@ const Odyssey = (() => {
 
     const init = () => {
         if (!$('html').hasClass('odyssey-ready')) {
-            $('body').append($(UI()));
+            $('body').append($(uiTemplate()));
             $('html').addClass('odyssey-aside-hidden')
                 .addClass('odyssey-ready');
         }

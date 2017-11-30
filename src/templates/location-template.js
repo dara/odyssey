@@ -1,4 +1,4 @@
-export default function Location({ slug, name }) {
+export default function locationTemplate({ slug, name }) {
     return `
         <li data-location-name="${slug}">
             <note>
